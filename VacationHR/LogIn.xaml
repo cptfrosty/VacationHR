@@ -1,0 +1,22 @@
+﻿<Window x:Class="VacationHR.LogIn"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VacationHR"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="250" Width="300" MaxHeight="400" MaxWidth="550">
+    <Grid>
+        <StackPanel Margin="20">
+            <Label Content="Email:"/>
+            <TextBox x:Name="EmailTextBox"/>
+
+            <Label Content="Пароль:"/>
+            <PasswordBox x:Name="PasswordBox"/>
+
+            <Button x:Name="logIn" Content="Войти" Margin="0,10,0,0" Click="logIn_Click"/>
+
+            <TextBlock x:Name="MessageTextBlock" Margin="0,10,0,0" TextWrapping="Wrap"/>
+        </StackPanel>
+    </Grid>
+</Window>
