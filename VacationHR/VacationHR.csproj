@@ -107,7 +107,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="IUpdateForm.cs" />
     <Compile Include="VacationRequestPopup.xaml.cs">
       <DependentUpon>VacationRequestPopup.xaml</DependentUpon>
     </Compile>

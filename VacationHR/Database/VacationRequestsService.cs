@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,12 @@ namespace VacationHR.Database
             _csDb = csDb;
         }
 
-        public async Task<List<VacationRequests>> GetVacationRequestsAsync(int id)
+        /// <summary>
+        /// Получить список заявок на отпуск по конкретному пользователю
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя</param>
+        /// <returns></returns>
+        public async Task<ObservableCollection<VacationRequests>> GetVacationRequestsAsync(int id)
         {
             NpgsqlCommand command
             = new NpgsqlCommand($@"SELECT
@@ -40,14 +46,17 @@ namespace VacationHR.Database
                         users u ON v.user_id = u.id
                     INNER JOIN
                         vacation_request_statuses s ON v.status_id = s.id
-                    WHERE v.user_id = @user_id; ");
+                    WHERE v.user_id = @user_id; ", await _csDb.GetConnectionAsync());
 
             command.Parameters.AddWithValue("@user_id", id);
 
             return await GetVacationRequestsAsync(command);
         }
-
-        public async Task<List<VacationRequests>> GetVacationRequestsAsync()
+        /// <summary>
+        /// Получить все заявки на отпуск
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ObservableCollection<VacationRequests>> GetVacationRequestsAsync()
         {
             NpgsqlCommand command
             = new NpgsqlCommand(@"SELECT
@@ -68,11 +77,16 @@ namespace VacationHR.Database
                     INNER JOIN
                         users u ON v.user_id = u.id
                     INNER JOIN
-                        vacation_request_statuses s ON v.status_id = s.id;");
+                        vacation_request_statuses s ON v.status_id = s.id;", await _csDb.GetConnectionAsync());
 
             return await GetVacationRequestsAsync(command);
         }
 
+        /// <summary>
+        /// Записать данные в БД
+        /// </summary>
+        /// <param name="vr">Объект VacationRequests</param>
+        /// <returns></returns>
         public async Task<bool> Write(VacationRequests vr)
         {
             bool result = false;
@@ -127,14 +141,51 @@ namespace VacationHR.Database
             return result;
         }
 
-        private async Task<List<VacationRequests>> GetVacationRequestsAsync(NpgsqlCommand command)
+        public async Task<ObservableCollection<VacationRequestsStatuses>> GetVacationRequestsStatuses()
         {
-            List<VacationRequests> vacationRequests = new List<VacationRequests>();
+            ObservableCollection<VacationRequestsStatuses> vacationRequestsStatuses = new ObservableCollection<VacationRequestsStatuses>();
             try
             {
                 using (var connection = await _csDb.GetConnectionAsync())
                 {
-                    using (command = new NpgsqlCommand(command.CommandText, connection))
+                    using (NpgsqlCommand command = 
+                        new NpgsqlCommand(@"SELECT * FROM public.vacation_request_statuses ORDER BY id ASC ", connection))
+                    {
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                //VacationRequestsStatuses vrs = new VacationRequestsStatuses();
+
+                                VacationRequestsStatuses vacationRequest = new VacationRequestsStatuses
+                                {
+                                    ID = reader.GetInt32(0),
+                                    StatusName = reader.GetString(1),
+                                };
+
+                                vacationRequestsStatuses.Add(vacationRequest);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при получении заявок на отпуск: {ex}");
+                //throw;
+            }
+
+            return vacationRequestsStatuses;
+        }
+        
+        private async Task<ObservableCollection<VacationRequests>> GetVacationRequestsAsync(NpgsqlCommand command)
+        {
+            ObservableCollection<VacationRequests> vacationRequests = new ObservableCollection<VacationRequests>();
+            try
+            {
+                using (var connection = await _csDb.GetConnectionAsync())
+                {
+                    using (command)
                     {
                         using (var reader = await command.ExecuteReaderAsync())
                         {

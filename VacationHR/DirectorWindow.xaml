@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VacationHR"
+        xmlns:dbdata ="clr-namespace:VacationHR.Database.Data"
         mc:Ignorable="d"
         Title="DirectorWindow" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
@@ -12,15 +13,19 @@
             <Label Content="Заявки на отпуск"/>
             <DataGrid x:Name="vacationRequestsTable" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Имя"/>
-                    <DataGridTextColumn Header="Отчество"/>
-                    <DataGridTextColumn Header="Фамилия"/>
-                    <DataGridTextColumn Header="Начало"/>
-                    <DataGridTextColumn Header="Конец"/>
-                    <DataGridTextColumn Header="Причина"/>
-                    <DataGridComboBoxColumn Header="Статус"/>
-                    <DataGridTextColumn Header="Заполнено"/>
-                    <DataGridTextColumn Header="Комментарий"/>
+                    <DataGridTextColumn Header="Имя"         Binding="{Binding UserFirstName}"/>
+                    <DataGridTextColumn Header="Отчество"    Binding="{Binding UserMiddleName}"/>
+                    <DataGridTextColumn Header="Фамилия"     Binding="{Binding UserLastName}"/>
+                    <DataGridTextColumn Header="Начало"      Binding="{Binding StartDate}"/>
+                    <DataGridTextColumn Header="Конец"       Binding="{Binding EndDate}"/>
+                    <DataGridTextColumn Header="Причина"     Binding="{Binding Reason}"/>
+                    <DataGridComboBoxColumn Header="Статус"  
+                                            SelectedValueBinding="{Binding StatusID}"
+                                            ItemsSource="{Binding Source={x:Static dbdata:VacationRequests.VacationRequestsStatusesCollection}}"
+                                            DisplayMemberPath="StatusName"
+                                            SelectedValuePath="ID"/>
+                    <DataGridTextColumn Header="Заполнено"   Binding="{Binding RequestDate}"/>
+                    <DataGridTextColumn Header="Комментарий" Binding="{Binding ManagerComment}"/>   
                 </DataGrid.Columns>
                 
             </DataGrid>

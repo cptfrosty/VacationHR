@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,10 @@ namespace VacationHR
     /// </summary>
     public partial class DirectorWindow : Window
     {
-        List<VacationRequests> _vacationRequests = new List<VacationRequests>();
+        ObservableCollection<VacationRequests> _vacationRequests = new ObservableCollection<VacationRequests>();
         public DirectorWindow()
         {
+            VacationRequests.VacationRequestsStatusesCollection = Database.DatabaseService.Instance.Statuses;
             InitializeComponent();
 
             Task.Run(() => InitializationTable()).Wait();
@@ -34,6 +36,7 @@ namespace VacationHR
 
             Dispatcher.Invoke(() =>
             {
+                //Заполнение данными
                 if (_vacationRequests.Count > 0)
                 {
                     vacationRequestsTable.ItemsSource = _vacationRequests;

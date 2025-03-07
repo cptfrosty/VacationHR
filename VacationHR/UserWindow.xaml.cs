@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using VacationHR.Database;
@@ -11,7 +12,7 @@ namespace VacationHR
     /// </summary>
     public partial class UserWindow : Window
     {
-        List<VacationRequests> _vacationRequests = new List<VacationRequests>();
+        ObservableCollection<VacationRequests> _vacationRequests = new ObservableCollection<VacationRequests>();
         public UserWindow()
         {
             InitializeComponent();

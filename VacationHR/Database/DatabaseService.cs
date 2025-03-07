@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace VacationHR.Database
 
         //Data
         public User User { get; set; }
+        public ObservableCollection<VacationRequestsStatuses> Statuses { get; private set; }
 
         //Services
         public ConnectionService ConnectionService { get; set; }
@@ -38,6 +40,12 @@ namespace VacationHR.Database
             AuthService = new AuthService(ConnectionService);
             UserService = new UserService(ConnectionService);
             VacationRequestsService = new VacationRequestsService(ConnectionService);
+            Task.Run(() => InitializationVacationRequestsStatuses()).Wait();
+        }
+
+        private async void InitializationVacationRequestsStatuses()
+        {
+            Statuses = await VacationRequestsService.GetVacationRequestsStatuses();
         }
     }
 }

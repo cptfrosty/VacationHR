@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,5 +27,8 @@ namespace VacationHR.Database.Data
 
         public DateTime RequestDate { get; set; } //Какого числа заполнена заявка
         public string ManagerComment { get; set; }
+
+        public static ObservableCollection<VacationRequestsStatuses> VacationRequestsStatusesCollection { get; set; } 
+            = new ObservableCollection<VacationRequestsStatuses>();
     }
 }
