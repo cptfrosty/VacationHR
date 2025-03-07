@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VacationHR"
         mc:Ignorable="d"
-        Title="Авторизация" Height="250" Width="300" MaxHeight="400" MaxWidth="550">
+        Title="Авторизация" Height="250" Width="300" MaxHeight="400" MaxWidth="550" 
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel Margin="20">
             <Label Content="Email:"/>

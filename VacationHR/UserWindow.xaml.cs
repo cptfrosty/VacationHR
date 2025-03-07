@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using VacationHR.Database;
 using VacationHR.Database.Data;
 
 namespace VacationHR
@@ -18,19 +9,27 @@ namespace VacationHR
     /// <summary>
     /// Логика взаимодействия для DirectorWindow.xaml
     /// </summary>
-    public partial class DirectorWindow : Window
+    public partial class UserWindow : Window
     {
         List<VacationRequests> _vacationRequests = new List<VacationRequests>();
-        public DirectorWindow()
+        public UserWindow()
         {
             InitializeComponent();
+            UpdateTable();
+        }
 
+        public void UpdateTable()
+        {
             Task.Run(() => InitializationTable()).Wait();
         }
 
         private async void InitializationTable()
         {
-            _vacationRequests = await Database.DatabaseService.Instance.VacationRequestsService.GetVacationRequestsAsync();
+            _vacationRequests = 
+                await Database.DatabaseService
+                .Instance
+                .VacationRequestsService
+                .GetVacationRequestsAsync(UserService.User.Id);
 
             Dispatcher.Invoke(() =>
             {
@@ -39,6 +38,12 @@ namespace VacationHR
                     vacationRequestsTable.ItemsSource = _vacationRequests;
                 }
             });
+        }
+
+        private void btnVacationRequest_Click(object sender, RoutedEventArgs e)
+        {
+            VacationRequestPopup popup = new VacationRequestPopup();
+            popup.ShowDialog();
         }
     }
 }

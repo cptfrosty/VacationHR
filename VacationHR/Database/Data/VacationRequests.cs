@@ -11,20 +11,20 @@ namespace VacationHR.Database.Data
         public int ID;
 
         //От какого пользователя заявка
-        public int UserID;
-        public string UserFirstName;
-        public string UserLastName;
-        public string UserMiddleName;
+        public int UserID { get; set; }
+        public string UserFirstName { get; set; }
+        public string UserLastName { get; set; }
+        public string UserMiddleName { get; set; }
 
-        public DateTime StartDate;
-        public DateTime EndDate;
-        public string Reason;
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Reason { get; set; }
 
         //Статус
-        public int StatusID;
-        public string StatusName;
+        public int StatusID { get; set; }
+        public string StatusName { get; set; }
 
-        public DateTime RequestDate; //Какого числа заполнена заявка
-        public string ManagerComment;
+        public DateTime RequestDate { get; set; } //Какого числа заполнена заявка
+        public string ManagerComment { get; set; }
     }
 }

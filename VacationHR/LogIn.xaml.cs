@@ -54,10 +54,20 @@ namespace VacationHR
                 //3. Если пароль совпал, то получаем данные по пользователю
                 await _userService.InitUserByEmailAsync(email);
 
-                if(UserService.User.Role == "Руководитель")
+                switch (UserService.User.Role)
                 {
-                    DirectorWindow directorWindow = new DirectorWindow();
-                    directorWindow.Show();
+                    case "Руководитель":
+                        DirectorWindow directorWindow = new DirectorWindow();
+                        Application.Current.MainWindow = directorWindow;
+                        directorWindow.Show();
+                        this.Close();
+                        break;
+                    case "Сотрудник":
+                        UserWindow userWindow = new UserWindow();
+                        App.Current.MainWindow = userWindow;
+                        userWindow.Show();
+                        this.Close();
+                        break;
                 }
             }
             else
