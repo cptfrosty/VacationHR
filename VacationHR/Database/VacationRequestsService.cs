@@ -178,6 +178,54 @@ namespace VacationHR.Database
             return vacationRequestsStatuses;
         }
         
+        public async Task<bool> UpdateVacationRequests(ObservableCollection<VacationRequests> vacationRequests)
+        {
+            try
+            {
+                using (var connection = await _csDb.GetConnectionAsync())
+                {
+                    foreach (VacationRequests request in vacationRequests)
+                    {
+                        // 1. Создаем SQL-запрос для обновления записи
+                        string sql = @"
+                    UPDATE vacation_requests  -- Замените на имя вашей таблицы
+                    SET
+                        reason = @reason,
+                        status_id = @status_id,
+                        manager_comment = @manager_comment
+                    WHERE id = @id;  -- Условие для выбора нужной записи";
+
+                        // 2. Создаем команду Npgsql
+                        using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
+                        {
+                            // 3. Устанавливаем параметры команды
+                            command.Parameters.AddWithValue("@reason", request.Reason ?? "");
+                            command.Parameters.AddWithValue("@status_id", request.StatusID);
+                            command.Parameters.AddWithValue("@request_date", request.RequestDate);
+                            command.Parameters.AddWithValue("@manager_comment", request.ManagerComment ?? "");
+                            command.Parameters.AddWithValue("@id", request.ID); // ID записи для обновления
+
+                            // 4. Выполняем запрос
+                            int rowsAffected = await command.ExecuteNonQueryAsync();
+
+                            if (rowsAffected != 1)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при записи заявки на отпуск: {ex}");
+            }
+
+            return true;
+        }
+
         private async Task<ObservableCollection<VacationRequests>> GetVacationRequestsAsync(NpgsqlCommand command)
         {
             ObservableCollection<VacationRequests> vacationRequests = new ObservableCollection<VacationRequests>();

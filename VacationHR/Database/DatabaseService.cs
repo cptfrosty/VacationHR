@@ -24,7 +24,6 @@ namespace VacationHR.Database
         private static DatabaseService _instance;
 
         //Data
-        public User User { get; set; }
         public ObservableCollection<VacationRequestsStatuses> Statuses { get; private set; }
 
         //Services

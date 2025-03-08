@@ -11,24 +11,27 @@
     <Grid>
         <StackPanel>
             <Label Content="Заявки на отпуск"/>
-            <DataGrid x:Name="vacationRequestsTable" AutoGenerateColumns="False">
+            <DataGrid x:Name="vacationRequestsTable" AutoGenerateColumns="False" MaxHeight="250" MinHeight="250" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Имя"         Binding="{Binding UserFirstName}"/>
-                    <DataGridTextColumn Header="Отчество"    Binding="{Binding UserMiddleName}"/>
-                    <DataGridTextColumn Header="Фамилия"     Binding="{Binding UserLastName}"/>
-                    <DataGridTextColumn Header="Начало"      Binding="{Binding StartDate}"/>
-                    <DataGridTextColumn Header="Конец"       Binding="{Binding EndDate}"/>
-                    <DataGridTextColumn Header="Причина"     Binding="{Binding Reason}"/>
+                    <DataGridTextColumn Header="Имя"         Binding="{Binding UserFirstName}"  IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Отчество"    Binding="{Binding UserMiddleName}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Фамилия"     Binding="{Binding UserLastName}"   IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Начало"      Binding="{Binding StartDate,   StringFormat=dd-MM-yyyy}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Конец"       Binding="{Binding EndDate,     StringFormat=dd-MM-yyyy}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Причина"     Binding="{Binding Reason}"         IsReadOnly="True"/>
                     <DataGridComboBoxColumn Header="Статус"  
                                             SelectedValueBinding="{Binding StatusID}"
                                             ItemsSource="{Binding Source={x:Static dbdata:VacationRequests.VacationRequestsStatusesCollection}}"
                                             DisplayMemberPath="StatusName"
                                             SelectedValuePath="ID"/>
-                    <DataGridTextColumn Header="Заполнено"   Binding="{Binding RequestDate}"/>
-                    <DataGridTextColumn Header="Комментарий" Binding="{Binding ManagerComment}"/>   
+                    <DataGridTextColumn Header="Заполнено"   Binding="{Binding RequestDate, StringFormat=dd-MM-yyyy}"    IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Комментарий" Binding="{Binding ManagerComment}" MaxWidth="300"/>   
                 </DataGrid.Columns>
                 
             </DataGrid>
-        </StackPanel>
+            <Button x:Name="btnUpdateData" Content="Отправить обновленные данные" Margin="0,20,0,0" Click="btnUpdateData_Click"/>
+            <Button x:Name="btnCancelData" Content="Отменить изменения" Margin="0,10,0,0" Click="btnCancelData_Click"/>
+            <Button x:Name="createReport" Content="Создать отчёт" Margin="0,10,0,0" Click="createReport_Click"/>
+        </StackPanel> 
     </Grid>
 </Window>

@@ -44,7 +44,12 @@ namespace VacationHR
         private void btnVacationRequest_Click(object sender, RoutedEventArgs e)
         {
             VacationRequestPopup popup = new VacationRequestPopup();
-            popup.ShowDialog();
+            bool? isClose = popup.ShowDialog();
+
+            if (isClose == true) 
+            {
+                UpdateTable();
+            }
         }
     }
 }

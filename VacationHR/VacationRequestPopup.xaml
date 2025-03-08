@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:VacationHR"
         mc:Ignorable="d"
         Title="VacationRequestPopup" Height="450" MaxHeight="450" MinHeight="450" Width="300" MaxWidth="300" MinWidth="300"
-        WindowStartupLocation="CenterOwner" Closing="Window_Closing">
+        WindowStartupLocation="CenterOwner"
+        Closing="Window_Closing">
     <Grid>
         <StackPanel>
             <TextBlock Text="Подача заявки на отпуск" HorizontalAlignment="Center"/>
-            
+            <TextBlock x:Name="tbCountVacationDays" Text="Оставшееся количество дней отпуска: " Margin="0, 10, 0, 10"/>
             <!--НАЧАЛО ОТПУСКА -->
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -42,7 +43,7 @@
             </Grid>
 
             <!-- Подать заявку -->
-            <Button x:Name="btnVacationRequest" Content="Подать завяку" Margin="0, 10, 0, 0" Click="btnVacationRequest_Click"/>
+            <Button x:Name="btnVacationRequest" Content="Подать заявку" Margin="0, 10, 0, 0" Click="btnVacationRequest_Click"/>
         </StackPanel>
     </Grid>
 </Window>

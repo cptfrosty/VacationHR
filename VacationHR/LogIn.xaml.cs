@@ -57,6 +57,7 @@ namespace VacationHR
                 switch (UserService.User.Role)
                 {
                     case "Руководитель":
+                    case "HR":
                         DirectorWindow directorWindow = new DirectorWindow();
                         Application.Current.MainWindow = directorWindow;
                         directorWindow.Show();

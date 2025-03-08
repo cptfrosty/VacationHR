@@ -10,19 +10,19 @@
     <Grid>
         <StackPanel>
             <Label Content="Ваши заявки на отпуск"/>
-            <DataGrid x:Name="vacationRequestsTable" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding}">
+            <DataGrid x:Name="vacationRequestsTable" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding}" 
+                      MinHeight="250" MaxHeight="250" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Имя"         Binding="{Binding UserFirstName}"/>
                     <DataGridTextColumn Header="Отчество"    Binding="{Binding UserMiddleName}"/>
                     <DataGridTextColumn Header="Фамилия"     Binding="{Binding UserLastName}"/>
-                    <DataGridTextColumn Header="Начало"      Binding="{Binding StartDate}"/>
-                    <DataGridTextColumn Header="Конец"       Binding="{Binding EndDate}"/>
+                    <DataGridTextColumn Header="Начало"      Binding="{Binding StartDate, StringFormat=dd-MM-yyyy}"/>
+                    <DataGridTextColumn Header="Конец"       Binding="{Binding EndDate, StringFormat=dd-MM-yyyy}"/>
                     <DataGridTextColumn Header="Причина"     Binding="{Binding Reason}"/>
                     <DataGridTextColumn Header="Статус"      Binding="{Binding StatusName}"/>
-                    <DataGridTextColumn Header="Заполнено"   Binding="{Binding RequestDate}"/>
+                    <DataGridTextColumn Header="Заполнено"   Binding="{Binding RequestDate, StringFormat=dd-MM-yyyy}"/>
                     <DataGridTextColumn Header="Комментарий" Binding="{Binding ManagerComment}"/>
                 </DataGrid.Columns>
-                
             </DataGrid>
             <Button x:Name="btnVacationRequest" Content="Подать заявку на отпуск" Click="btnVacationRequest_Click"/> 
         </StackPanel>
