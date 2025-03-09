@@ -16,8 +16,9 @@
 - EPPlus (для excel отчёта)
 
 # Скриншоты
-![Alt text](/Screenshots/Авторизация.png?raw=true "Окно авторизации")
-![Alt text](/Screenshots/Окно подачи заявки.png?raw=true "Окно подачи заявки")
-![Alt text](/Screenshots/Окно руководителя и HR.png?raw=true "Окно руководителя и HR")
-![Alt text](/Screenshots/Окно сотрудника.png?raw=true "Окно сотрудника")
-![Alt text](/Screenshots/Успешная заявка на отпуск.png?raw=true "Успешная заявка на отпуск")
+![Alt text](/Screenshots/Авторизация.png "Окно авторизации")
+
+![Alt text](/Screenshots/Окно_подачи_заявки.png "Окно подачи заявки")
+![Alt text](/Screenshots/Окно_руководителя_и_HR.png "Окно руководителя и HR")
+![Alt text](/Screenshots/Окно_сотрудника.png "Окно сотрудника")
+![Alt text](/Screenshots/Успешная_заявка_на_отпуск.png "Успешная заявка на отпуск")
