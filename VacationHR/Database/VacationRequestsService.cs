@@ -188,12 +188,12 @@ namespace VacationHR.Database
                     {
                         // 1. Создаем SQL-запрос для обновления записи
                         string sql = @"
-                    UPDATE vacation_requests  -- Замените на имя вашей таблицы
+                    UPDATE vacation_requests
                     SET
                         reason = @reason,
                         status_id = @status_id,
                         manager_comment = @manager_comment
-                    WHERE id = @id;  -- Условие для выбора нужной записи";
+                    WHERE id = @id;";
 
                         // 2. Создаем команду Npgsql
                         using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
